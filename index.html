@@ -436,42 +436,37 @@
             const confirmClearNo = document.getElementById('confirm-clear-no');
 
             // --- Sound Helper ---
-         const SOUNDS = {
-   const SOUNDS = {
-    // Click sound (Base64)
-    click: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=',
-    
-    // Victory sound/tada (Base64)
-    tada: 'data:audio/wav;base64,UklGRqYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVIAAABvT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT',
+            const SOUNDS = {
+                // Base64 short click sound
+                click: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=',
+                // Base64 short tada/victory sound
+                tada: 'data:audio/wav;base64,UklGRqYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVIAAABvT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT',
+                shaking: 'https://www.soundjay.com/misc/shaking-keys-01.mp3',
+                clapping: 'https://www.soundjay.com/human/applause-01.mp3',
+                fail: 'https://www.soundjay.com/misc/fail-trumpet-01.mp3',
+                gamble: 'https://www.soundjay.com/misc/magic-chime-01.mp3',
+                tear: 'https://www.soundjay.com/misc/paper-rip-1.mp3'
+            };
 
-    // Reuse the click sound for other effects so the file doesn’t get too large
-    shaking: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=',
-    clapping: 'data:audio/wav;base64,UklGRqYAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YVIAAABvT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT19vT',
-    fail: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=',
-    gamble: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA=',
-    tear: 'data:audio/wav;base64,UklGRlQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YVAAAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA='
-};
-
-         const playSound = (type) => {
-    if (!SOUNDS[type]) return;
-    try {
-        const audio = new Audio();
-        audio.src = SOUNDS[type];
-        
-        // Atur volume (0.0 sampai 1.0)
-        audio.volume = 0.5;
-        
-        // Reset waktu ke 0 agar bisa bunyi berkali-kali jika diklik cepat
-        audio.currentTime = 0; 
-        
-        audio.play().catch(e => {
-            // Log ini akan muncul di console jika suara tetap gagal
-            console.warn(`Audio ${type} gagal diputar. Klik layar dulu ya!`, e);
-        });
-    } catch (err) {
-        console.error("Error pada sistem suara:", err);
-    }
-};
+            const playSound = (type) => {
+                if (!SOUNDS[type]) return;
+                try {
+                    const audio = new Audio();
+                    audio.src = SOUNDS[type];
+                    // Only use crossOrigin for external URLs
+                    if (SOUNDS[type].startsWith('http')) {
+                        audio.crossOrigin = "anonymous";
+                    }
+                    audio.volume = 0.5;
+                    audio.play().catch(e => {
+                        // If Base64 fails, it's usually because it's too short/invalid in some browsers
+                        // but it's the most reliable way for self-contained files.
+                        console.warn(`Audio ${type} play failed:`, e);
+                    });
+                } catch (err) {
+                    console.error("Sound error:", err);
+                }
+            };
 
             // --- Core Functions ---
             const updateUI = () => {
@@ -872,12 +867,5 @@
             updateUI();
         });
     </script>
-    // Ensure that the audio is "on" when the user begins interacting
-userNameInput.addEventListener('focus', () => {
-    const pancingan = new Audio();
-    bait.src = SOUNDS.click;
-    bait.volume = 0; // Silent, just to prompt the browser for permission
-    bait.play().catch(() => {});
-}, { once: true });
 </body>
 </html>
